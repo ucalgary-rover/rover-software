@@ -2,3 +2,4 @@ Try adding text to this file by adding your name, then push the changes to
 the github repo.
 
 Derek Braun
+Garth Slaney
