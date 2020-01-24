@@ -4,8 +4,18 @@ the github repo.
 Derek Braun
 <<<<<<< HEAD
 Garth Slaney
+<<<<<<< HEAD
 Vanessa Chen
 
 =======
 Vanessa Chen
 >>>>>>> newBranch
+=======
+Saurav Uprety
+
+
+=======
+Olivia Ko-Wilson
+>>>>>>> newBranch
+Tom Altankhuyag
+>>>>>>> 10889e2f39ba86321066e9ad98b9affdf7aa826b
