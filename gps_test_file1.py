@@ -1,5 +1,10 @@
 import gps
 
+#if the GPS is not running, you may have to input these commands into the terminal:
+#sudo killall gpsd
+#sudo gpsd /dev/serial0/ -F /var/run/gpsd.sock
+#This simply restarts the gpsd and prepares it for the output this program uses.
+
 #Listens to gpsd
 session = gps.gps("localhost","2947")
 session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
