@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Rover Graphical Interface</title>
-      <script src="map.js" defer></script>
-      <script src="camera1.js" defer></script>
-      <script src="camera2.js" defer></script>
+      <script src="map.js" type="text/javascript"></script>
+      <script src="camera1.js" type="text/javascript"></script>
+      <script src="camera2.js" type="text/javascript"></script>
       <style>
         .dropbtn {
           background-color: #4CAF50;
@@ -16,9 +16,14 @@
         }
 
         .dropdown {
-          position: relative;
+          position: absolute;
           display: inline-block;
         }
+
+        img{
+          position: relative;
+        }
+
 
         .dropdown-content {
           display: none;
@@ -45,12 +50,13 @@
   </head>
 
   <body>
+    <img id="myImage" src="https://images-na.ssl-images-amazon.com/images/I/61GaHo-zgQL._AC_SL1000_.jpg" alt="temp" width = '750' height = '600' >
     <div class="dropdown">
-      <button class="dropbtn">Test</button>
+      <button class="dropbtn">Select View</button>
       <div class="dropdown-content">
-        <a href="#">Map View</a>
-        <a href="#">Camera 1 View</a>
-        <a href="#">Camera 2 View</a>
+        <a href="#map" onclick ="document.getElementById('myImage').src='https://images-na.ssl-images-amazon.com/images/I/61GaHo-zgQL._AC_SL1000_.jpg'">Map View</a>
+        <a href="#cam1" onclick ="document.getElementById('myImage').src='https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Blogimage.png'">Camera 1 View</a>
+        <a href="#cam2" onclick ="document.getElementById('myImage').src='https://static.scientificamerican.com/sciam/cache/file/B057439A-3F27-48F0-8EA54AF511520AAB_source.jpg'">Camera 2 View</a>
       </div>
     </div>
   </body>
