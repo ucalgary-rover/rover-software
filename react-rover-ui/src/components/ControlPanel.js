@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import EventEmitter2 from 'eventemitter2';
 import ROSLIB from 'roslib';
-import MJPEGCANVAS from 'mjpegcanvas';
 
 var ros = new ROSLIB.Ros({
   url : 'ws://localhost:9090'
