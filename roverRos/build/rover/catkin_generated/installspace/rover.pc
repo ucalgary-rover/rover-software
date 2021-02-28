@@ -1,0 +1,8 @@
+prefix=/home/derek/Documents/roverRos/install
+
+Name: rover
+Description: Description of rover
+Version: 0.0.1
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,2 @@
+rover
+-DCATKIN_DEVEL_PREFIX=/home/derek/Documents/roverRos/devel -DCMAKE_INSTALL_PREFIX=/home/derek/Documents/roverRos/install -G Unix Makefiles
