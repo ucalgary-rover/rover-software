@@ -1,0 +1,39 @@
+.rectangle {
+    
+  display: inline-flexbox;
+  height: 1000px;
+  width: 1000px;
+  border: 10px solid black;
+  background-color: whitesmoke;
+  padding: 100px;
+  margin: auto;
+}
+
+
+.minirectangle {
+  display: inline-flex;
+  height: 300px;
+  width: 300px;
+  border: 5px solid  black;
+  background-color: lightcyan ;
+  margin: auto;
+
+}
+
+.columns {
+
+  width: 600px;
+  display: flex;
+
+  
+}
+
+.column {
+  margin: 80px;
+  padding: 5px;
+  
+}
+
+.line{
+  text-decoration-style: dashed;
+}
