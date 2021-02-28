@@ -1,4 +1,33 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import EventEmitter2 from 'eventemitter2';
+import ROSLIB from 'roslib';
+import MJPEGCANVAS from 'mjpegcanvas';
+
+var ros = new ROSLIB.Ros({
+  url : 'ws://localhost:9090'
+});
+
+ros.on('connection', function() {
+  console.log('Connected to websocket server');
+});
+
+ros.on('error', function(error) {
+  console.log('Error connecting to websocket server: ', error);
+});
+
+ros.on('close', function() {
+  console.log('Connection to websocket server closed.');
+});
+
+var listener = new ROSLIB.Topic({
+  ros : ros,
+  name : '/rover/gps_report',
+  messageType: 'rover/GpsCoords'
+});
+
+listener.subscribe(function(message) {
+  console.log('Received message on ' + listener.name + ': ' + message.latitude + " " + message.longitude);
+});
 
 export class ControlPanel extends Component {
   constructor(props) {
@@ -8,9 +37,21 @@ export class ControlPanel extends Component {
     };
     this.changeRouteMode = this.changeRouteMode.bind(this);
   }
+
+  // componentDidMount() {
+  //   var viewer = new MJPEGCANVAS.Viewer({
+  //     divID : 'mjpeg',
+  //     host : 'localhost',
+  //     width : 640,
+  //     height : 480,
+  //     topic : '/rover/front_cam'
+  //   });
+  // }
+
   render() {
     return (
       <div>
+        <div id="mjpeg"></div>
         <button onClick={this.changeRouteMode}>{this.state.routeMode}</button>
       </div>
     );
