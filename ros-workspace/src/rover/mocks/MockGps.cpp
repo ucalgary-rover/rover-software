@@ -22,16 +22,16 @@ int main(int argc, char **argv)
 
 		msg.header.stamp = ros::Time::now();
 
-		msg.lat = double(rand());
-		msg.lon = double(rand());
+		msg.latitude = double(rand());
+		msg.longitude = double(rand());
 
 		pub.publish(msg);
 
 		ROS_INFO_STREAM("Reported GPS:" 
 			<< " lat: " 
-			<< msg.lat
-			<< " lon: "
-			<< msg.lon);
+			<< msg.latitude
+			<< " long: "
+			<< msg.longitude);
 
 		rate.sleep();
 	}

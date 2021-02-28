@@ -53,6 +53,7 @@ add_message_files(
   DriveControls.msg
   GpsCoords.msg
   MotorState.msg
+  Vector3.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -144,8 +145,13 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 # add_executable(${PROJECT_NAME}_node src/main_node.cpp)
 
 add_executable(hello tutorial/Hello.cpp)
+
 add_executable(gps_mock mocks/MockGps.cpp)
 add_executable(motor_mock mocks/MockMotors.cpp)
+
+add_executable(gps_sim sim/SimGps.cpp)
+
+add_executable(keyboard_control control/Keyboard.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -163,8 +169,13 @@ add_executable(motor_mock mocks/MockMotors.cpp)
 # )
 
 target_link_libraries(hello ${catkin_LIBRARIES})
+
 target_link_libraries(gps_mock ${catkin_LIBRARIES})
 target_link_libraries(motor_mock ${catkin_LIBRARIES})
+
+target_link_libraries(gps_sim ${catkin_LIBRARIES})
+
+target_link_libraries(keyboard_control ${catkin_LIBRARIES})
 
 #############
 ## Install ##
