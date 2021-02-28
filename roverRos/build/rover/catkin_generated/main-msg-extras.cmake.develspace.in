@@ -1,2 +1,0 @@
-set(main_MESSAGE_FILES "/home/derek/Documents/roverRos/src/rover/msg/GpsCoords.msg;/home/derek/Documents/roverRos/src/rover/msg/MotorState.msg")
-set(main_SERVICE_FILES "")

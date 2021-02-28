@@ -1,2 +1,0 @@
-set(main_MESSAGE_FILES "msg/GpsCoords.msg;msg/MotorState.msg")
-set(main_SERVICE_FILES "")
