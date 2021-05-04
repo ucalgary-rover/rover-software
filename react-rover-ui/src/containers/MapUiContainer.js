@@ -1,6 +1,7 @@
 import React from "react";
 import { MapView } from "../components/MapView";
 import { ControlPanel } from "../components/ControlPanel";
+import { VideoStream } from "../components/VideoStream";
 
 export class MapUiContainer extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export class MapUiContainer extends React.Component {
   render() {
     return (
       <div>
+        <VideoStream />
         <MapView
           defaultCenter={this.props.launchConsts.mapCenter}
           mapTileDirectory={this.props.launchConsts.mapTileDirectory}
