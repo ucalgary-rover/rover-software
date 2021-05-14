@@ -1,35 +1,37 @@
 {
-  "_from": "mjpegcanvas",
+  "_args": [
+    [
+      "mjpegcanvas@0.4.0",
+      "C:\\Users\\derek\\Documents\\Rover\\rover-software\\react-rover-ui"
+    ]
+  ],
+  "_from": "mjpegcanvas@0.4.0",
   "_id": "mjpegcanvas@0.4.0",
   "_inBundle": false,
   "_integrity": "sha512-gAejJwlPyK9FpbeAGISwNO3OuEEds/shaRE8+cbX13/zddM64OSLjm0C/avb4sHa+YEHS2tCAciid72hQPK1NQ==",
   "_location": "/mjpegcanvas",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "mjpegcanvas",
+    "raw": "mjpegcanvas@0.4.0",
     "name": "mjpegcanvas",
     "escapedName": "mjpegcanvas",
-    "rawSpec": "",
+    "rawSpec": "0.4.0",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "0.4.0"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/mjpegcanvas/-/mjpegcanvas-0.4.0.tgz",
-  "_shasum": "601edf01196ade98713f1c577c3f43ede6ba700c",
-  "_spec": "mjpegcanvas",
-  "_where": "/home/derek/Documents/rover-software/react-rover-ui",
+  "_spec": "0.4.0",
+  "_where": "C:\\Users\\derek\\Documents\\Rover\\rover-software\\react-rover-ui",
   "author": {
     "name": "Russell Toris",
     "email": "rctoris@wpi.edu",
     "url": "http://wpi.edu/~rctoris/"
   },
-  "bundleDependencies": false,
-  "deprecated": false,
   "description": "Display a MJPEG stream from the ROS web_video_server Inside of a HTML5 Canvas",
   "devDependencies": {
     "grunt": "~0.4.1",
