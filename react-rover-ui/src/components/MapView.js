@@ -51,7 +51,7 @@ export class MapView extends Component {
         center={this.props.defaultCenter}
         zoom={14}
         scrollWheelZoom={false}
-        style={{ height: "700px", width: "800px", display: "inline-block" }}
+        style={{ height: "100%", width: "100%", display: "inline-block" }}
       >
         <ClickHandler
           userMode={this.props.userMode}
