@@ -11,14 +11,14 @@ export class MapUiContainer extends React.Component {
   }
   render() {
     return (
-      <div>
-        <VideoStream />
+      <div style={{ height: "100%", width: "100%", display: "inline-block" }}>
+        {/* <VideoStream /> */}
         <MapView
           defaultCenter={this.props.launchConsts.mapCenter}
           mapTileDirectory={this.props.launchConsts.mapTileDirectory}
           userMode={this.state.userMode}
         />
-        <ControlPanel changeUserMode={this.changeUserMode} />
+        {/* <ControlPanel changeUserMode={this.changeUserMode} /> */}
       </div>
     );
   }
