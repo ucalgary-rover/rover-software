@@ -8,17 +8,37 @@
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 32vh 32vh 32vh;
+  grid-template-rows: 33vh 33vh 33vh;
   grid-template-columns: 20vw 50vw 30vw;
 }
 
-.data-column {
+.data-panel {
   border-top: 3px solid black;
   border-bottom: 3px solid black;
   border-right: 3px solid black;
   grid-column: 1;
   grid-row: 1 / 4;
   background-color: gray;
+}
+
+.data-container {
+  display: grid;
+  grid-template-rows: 33vh 65.4vh;
+  grid-template-columns: 19.8vw;
+}
+
+.connections {
+  background-color: lightgray;
+  border: 8px solid gray;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.vehicle-health {
+  background-color: lightgray;
+  border: 8px solid gray;
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .map-view {
