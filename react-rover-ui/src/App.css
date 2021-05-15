@@ -47,7 +47,16 @@
 .plan-panel {
   border-top: 3px solid black;
   border-bottom: 3px solid black;
-  grid-column: 2 / 4;
+  grid-column: 2;
+  grid-row: 3;
+  background-color: gray;
+}
+
+.control-panel {
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+  border-left: 3px solid black;
+  grid-column: 3;
   grid-row: 3;
   background-color: gray;
 }
