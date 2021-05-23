@@ -4,6 +4,9 @@ import { MapUiContainer } from "./containers/MapUiContainer";
 import { VideoStream } from "./components/VideoStream";
 import { MultiVideoStream } from "./components/MultiVideoStream";
 import { VehicleHealth } from "./components/VehicleHealth";
+import { ControlPanel } from "./components/ControlPanel";
+
+var mapInteraction = {userMode: "view"};
 
 function App() {
   return <div className="primary-container">
@@ -13,12 +16,21 @@ function App() {
         <div className="vehicle-health"><VehicleHealth /></div>
       </div>
     </div>
-    <div className="map-view"><MapUiContainer launchConsts={launchConsts}/></div>
+    <div className="map-view"><MapUiContainer launchConsts={launchConsts} mapInteraction={mapInteractionState}/></div>
     <div className="video-feed-a"><VideoStream selection="front"/></div>
     <div className="video-feed-b"><MultiVideoStream/></div>
-    <div className="plan-panel"></div>
+    <div className="plan-panel"><ControlPanel changeUserMode={changeUserMode}/></div>
     <div className="control-panel"></div>
   </div>
+}
+
+function changeUserMode(mode) {
+  mapInteraction.userMode = mode;
+  console.log(mapInteraction.userMode);
+}
+
+function mapInteractionState() {
+  return mapInteraction;
 }
 
 export default App;

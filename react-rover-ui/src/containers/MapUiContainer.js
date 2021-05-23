@@ -6,24 +6,16 @@ import { VideoStream } from "../components/VideoStream";
 export class MapUiContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userMode: "view" };
-    this.changeUserMode = this.changeUserMode.bind(this);
   }
   render() {
     return (
       <div style={{ height: "100%", width: "100%", display: "inline-block" }}>
-        {/* <VideoStream /> */}
         <MapView
           defaultCenter={this.props.launchConsts.mapCenter}
           mapTileDirectory={this.props.launchConsts.mapTileDirectory}
-          userMode={this.state.userMode}
+          mapInteraction={this.props.mapInteraction}
         />
-        {/* <ControlPanel changeUserMode={this.changeUserMode} /> */}
       </div>
     );
-  }
-  changeUserMode(mode) {
-    this.setState({ userMode: mode });
-    console.log(mode);
   }
 }

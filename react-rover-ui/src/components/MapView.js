@@ -25,7 +25,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 function ClickHandler(props) {
   useMapEvent({
     click(e) {
-      if (props.userMode === "view") {
+      if (props.mapInteraction().userMode === "view") {
         return;
       }
       props.addWaypoint(e.latlng);
@@ -40,6 +40,7 @@ export class MapView extends Component {
     this.state = {
       waypoints: [],
       paths: [],
+      roverPosition: L.latLng(51.076672, -114.137474),
     };
     this.addWaypoint = this.addWaypoint.bind(this);
     this.drawPaths = this.drawPaths.bind(this);
@@ -49,12 +50,12 @@ export class MapView extends Component {
       <MapContainer
         onClick={this.handleClick}
         center={this.props.defaultCenter}
-        zoom={14}
+        zoom={17}
         scrollWheelZoom={false}
         style={{ height: "100%", width: "100%", display: "inline-block" }}
       >
         <ClickHandler
-          userMode={this.props.userMode}
+          mapInteraction={this.props.mapInteraction}
           addWaypoint={this.addWaypoint}
         />
         <TileLayer url={this.props.mapTileDirectory} />
@@ -74,10 +75,11 @@ export class MapView extends Component {
         {this.state.paths.map((positions, idx) => (
           <Polyline
             key={`path-${idx}`}
-            pathOptions={{ color: "red" }}
+            pathOptions={{ color: "lightBlue" }}
             positions={positions}
           />
         ))}
+        <Marker position={this.state.roverPosition}></Marker>
       </MapContainer>
     );
   }
@@ -98,5 +100,9 @@ export class MapView extends Component {
       newPaths.push(pathToAdd);
     }
     this.setState({ paths: newPaths });
+  }
+  updateRoverPosition(newPosition)
+  {
+    this.setState({ roverPosition: newPosition})
   }
 }

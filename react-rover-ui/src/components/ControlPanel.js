@@ -37,22 +37,9 @@ export class ControlPanel extends Component {
     this.changeRouteMode = this.changeRouteMode.bind(this);
   }
 
-  // componentDidMount() {
-  //   var viewer = new MJPEGCANVAS.Viewer({
-  //     divID : 'mjpeg',
-  //     host : 'localhost',
-  //     width : 640,
-  //     height : 480,
-  //     topic : '/rover/front_cam'
-  //   });
-  // }
-
   render() {
     return (
-      <div>
-        <div id="mjpeg"></div>
-        <button onClick={this.changeRouteMode}>{this.state.routeMode}</button>
-      </div>
+      <button onClick={this.changeRouteMode}>{this.state.routeMode}</button>
     );
   }
   changeRouteMode() {
