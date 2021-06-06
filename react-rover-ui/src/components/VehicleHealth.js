@@ -5,6 +5,9 @@ import ROSLIB from 'roslib';
 export class VehicleHealth extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        latitude: 0,
+    };
   }
 
   render() {
@@ -15,11 +18,11 @@ export class VehicleHealth extends Component {
                 <table>
                     <tr>
                         <th>Field</th>
-                        <th>Value</th>
+                        <th>Type</th>
                     </tr>
                     <tr>
-                        <td>field a</td>
-                        <td>Type</td>
+                        <td>Latitude</td>
+                        <td>{this.latitude}</td>
                     </tr>
                     <tr>
                         <td>field c</td>

@@ -11,6 +11,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import icon from "leaflet/dist/images/marker-icon.png";
+import roverIcon from "../img/rover-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 let DefaultIcon = L.icon({
@@ -18,6 +19,12 @@ let DefaultIcon = L.icon({
   shadowUrl: iconShadow,
   iconAnchor: [12, 40],
   shadowAnchor: [12, 40],
+});
+
+let RoverIcon = L.icon({
+  iconUrl: roverIcon,
+  iconSize: [30, 30],
+  iconAnchor: [15, 15],
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -79,7 +86,7 @@ export class MapView extends Component {
             positions={positions}
           />
         ))}
-        <Marker position={this.state.roverPosition}></Marker>
+        <Marker icon={RoverIcon} position={this.state.roverPosition}></Marker>
       </MapContainer>
     );
   }
