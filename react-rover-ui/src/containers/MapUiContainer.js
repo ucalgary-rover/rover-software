@@ -14,6 +14,7 @@ export class MapUiContainer extends React.Component {
           defaultCenter={this.props.launchConsts.mapCenter}
           mapTileDirectory={this.props.launchConsts.mapTileDirectory}
           mapInteraction={this.props.mapInteraction}
+          coordinateValues={this.props.markerCoordinates}
         />
       </div>
     );

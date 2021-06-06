@@ -7,6 +7,7 @@ import { VehicleHealth } from "./components/VehicleHealth";
 import { ControlPanel } from "./components/ControlPanel";
 
 var mapInteraction = {userMode: "view"};
+let markerCoordinates = {long: null, lat: null}
 
 function App() {
   return <div className="primary-container">
@@ -16,10 +17,10 @@ function App() {
         <div className="vehicle-health"><VehicleHealth /></div>
       </div>
     </div>
-    <div className="map-view"><MapUiContainer launchConsts={launchConsts} mapInteraction={mapInteractionState}/></div>
+    <div className="map-view"><MapUiContainer launchConsts={launchConsts} markerCoordinates={markerCoordinates} mapInteraction={mapInteractionState}/></div>
     <div className="video-feed-a"><VideoStream selection="front"/></div>
     <div className="video-feed-b"><MultiVideoStream/></div>
-    <div className="plan-panel"><ControlPanel changeUserMode={changeUserMode}/></div>
+    <div className="plan-panel"><ControlPanel addMarker ={addMarker} changeUserMode={changeUserMode}/></div>
     <div className="control-panel"></div>
   </div>
 }
@@ -27,6 +28,11 @@ function App() {
 function changeUserMode(mode) {
   mapInteraction.userMode = mode;
   console.log(mapInteraction.userMode);
+}
+
+function addMarker(newCoordinate){
+  markerCoordinates = newCoordinate;
+  console.log(newCoordinate);
 }
 
 function mapInteractionState() {

@@ -48,11 +48,15 @@ export class MapView extends Component {
       waypoints: [],
       paths: [],
       roverPosition: L.latLng(51.076672, -114.137474),
+      typedCoordinates: this.props.coordinateValues
     };
     this.addWaypoint = this.addWaypoint.bind(this);
     this.drawPaths = this.drawPaths.bind(this);
+    this.updateRoverPosition = this.updateRoverPosition.bind(this);
   }
   render() {
+    const popupButtonVisibility = this.props.mapInteraction().userMode === "remove" ? "visible": "hidden";
+
     return (
       <MapContainer
         onClick={this.handleClick}
@@ -76,6 +80,7 @@ export class MapView extends Component {
                 <br />
                 Lng: {position.lng}
               </span>
+              <button style={{visibility: popupButtonVisibility}} onClick={this.removeMarker(position)}>Remove Marker From Path</button>
             </Popup>
           </Marker>
         ))}
@@ -89,6 +94,15 @@ export class MapView extends Component {
         <Marker icon={RoverIcon} position={this.state.roverPosition}></Marker>
       </MapContainer>
     );
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(prevState.typedCoordinates.long != nextProps.coordinateValues.long || prevState.typedCoordinates.lat != nextProps.coordinateValues.lat){
+      this.addWaypoint(L.latLng(nextProps.coordinateValues.long, nextProps.coordinateValues.lat));
+      return {typedCoordinates: nextProps.coordinateValues};
+    }
+    else{
+      return null;
+    }
   }
   addWaypoint(position) {
     const newWaypoints = this.state.waypoints;
@@ -107,6 +121,13 @@ export class MapView extends Component {
       newPaths.push(pathToAdd);
     }
     this.setState({ paths: newPaths });
+  }
+  removeMarker(markersPosition){
+    const newWaypoints = this.state.waypoints.filter(position => position != markersPosition);
+    const newPaths = this.state.paths.filter(path => !path.includes(markersPosition))
+
+    this.setState({ waypoints: newWaypoints, paths: newPaths });
+    this.drawPaths();
   }
   updateRoverPosition(newPosition)
   {
