@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import "./style/App.css";
 import { launchConsts } from "./setup/LaunchConsts";
 import { MapView } from "./components/MapView";
@@ -23,11 +23,18 @@ function App() {
   }
 
   function changeWaypoints(points) {
-    setWaypoints(points)
-    console.log(waypoints);
+    if(points !== waypoints){
+      console.log(points, waypoints);
+      setWaypoints(points)
+    }
   }
 
-  return (<div className="primary-container">
+  useEffect(() => {
+    console.log("waypoints updated")
+  }, [waypoints])
+
+  return (
+  <div className="primary-container">
     <div className="data-panel">
       <div className="data-container">
         <div className="connections"></div>

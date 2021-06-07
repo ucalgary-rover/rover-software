@@ -21,8 +21,6 @@ let DefaultIcon = L.icon({
   shadowAnchor: [12, 40],
 });
 
-
-
 let RoverIcon = L.icon({
   iconUrl: roverIcon,
   iconSize: [30, 30],
@@ -44,21 +42,22 @@ function ClickHandler(props) {
 }
 
 function drawPaths(waypoints) {
-  let newPaths = [];
-  if (waypoints.length < 2) {
-    return [];
+    let newPaths = [];
+    if (waypoints.length < 2) {
+      return [];
+    }
+    for (var i = 1; i < waypoints.length; i++) {
+      let pathToAdd = [waypoints[i], waypoints[i - 1]];
+      newPaths.push(pathToAdd);
+    }
+    return newPaths;
   }
-  for (var i = 1; i < waypoints.length; i++) {
-    let pathToAdd = [waypoints[i], waypoints[i - 1]];
-    newPaths.push(pathToAdd);
-  }
-  return newPaths;
-}
 
 export function MapView(props){
   const [roverPosition, setRoverPosition] = useState(L.latLng(51.076672, -114.137474));
   const [waypoints, setWaypoints] = useState([roverPosition]);
   const [paths, setPaths] = useState([]);
+  // const [breakOrJoin, setBreakOrJoin] = useState([])
 
   const popupButtonVisibility = props.mapInteraction.userMode === "edit" ? "visible": "hidden";
 
@@ -67,18 +66,34 @@ export function MapView(props){
   }
 
   function addWaypoint(position) {
-    let newWaypoints = waypoints;
-    newWaypoints.push(position);
-    props.changeWaypoints(newWaypoints)
+    let newWaypoints = waypoints.concat(position)
+    props.changeWaypoints(newWaypoints);
     setWaypoints(newWaypoints);
-    setPaths(drawPaths(waypoints));
+    setPaths(drawPaths(newWaypoints));
   }
 
-  function removeMarker(markersPosition){
+  function removeAndJoin(markersPosition){
     let newWaypoints = waypoints.filter(position => position != markersPosition);
-    props.changeWaypoints(newWaypoints)
-    setPaths(drawPaths(newWaypoints));
+    props.changeWaypoints(newWaypoints);
     setWaypoints(newWaypoints);
+    setPaths(drawPaths(newWaypoints));
+  }
+
+  function removeAllAfter(markersPosition){
+    let indexOfMarker = waypoints.length;
+
+    let newWaypoints = waypoints.filter((position, idx) =>{ 
+      if (position === markersPosition)
+        indexOfMarker = idx;
+
+      if(idx > indexOfMarker)
+        return false;
+
+      return true;
+    });
+    props.changeWaypoints(newWaypoints)
+    setWaypoints(newWaypoints);
+    setPaths(drawPaths(newWaypoints));
   }
 
   useEffect(() => {
@@ -87,6 +102,7 @@ export function MapView(props){
     }
       
   }, [props.coordinateValues]);
+
 
    return (
       <MapContainer
@@ -97,10 +113,11 @@ export function MapView(props){
         style={{ height: "100%", width: "100%", display: "inline-block" }}
       >
         <ClickHandler
-          mapInteraction={props.mapInteraction}
           addWaypoint={addWaypoint}
+          mapInteraction={props.mapInteraction}
         />
         <TileLayer url={props.mapTileDirectory} />
+
         {waypoints.map((position, idx) => (
           <Marker key={`waypoint-${idx}`} position={position}>
             <Popup>
@@ -112,10 +129,12 @@ export function MapView(props){
                 Lng: {position.lng}
               </span>
               <br/>
-              <button style={{visibility: popupButtonVisibility}} onClick={() => removeMarker(position)}>Remove Marker From Path</button>
+              <button style={{visibility: popupButtonVisibility}} onClick={() => removeAndJoin(position)}>Remove & Join</button>
+              <button style={{visibility: popupButtonVisibility}} onClick={() => removeAllAfter(position)}>Remove All After</button>
             </Popup>
           </Marker>
           ))}
+
         {paths.map((positions, idx) => (
           <Polyline
             key={`path-${idx}`}
@@ -123,6 +142,7 @@ export function MapView(props){
             positions={positions}
           />
         ))}
+
       </MapContainer>
     );
 }
