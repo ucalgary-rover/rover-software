@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -21,6 +21,8 @@ let DefaultIcon = L.icon({
   shadowAnchor: [12, 40],
 });
 
+
+
 let RoverIcon = L.icon({
   iconUrl: roverIcon,
   iconSize: [30, 30],
@@ -32,7 +34,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 function ClickHandler(props) {
   useMapEvent({
     click(e) {
-      if (props.mapInteraction().userMode === "view") {
+      if (props.mapInteraction.userMode === "view") {
         return;
       }
       props.addWaypoint(e.latlng);
@@ -41,36 +43,65 @@ function ClickHandler(props) {
   return null;
 }
 
-export class MapView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      waypoints: [],
-      paths: [],
-      roverPosition: L.latLng(51.076672, -114.137474),
-      typedCoordinates: this.props.coordinateValues
-    };
-    this.addWaypoint = this.addWaypoint.bind(this);
-    this.drawPaths = this.drawPaths.bind(this);
-    this.updateRoverPosition = this.updateRoverPosition.bind(this);
+function drawPaths(waypoints) {
+  let newPaths = [];
+  if (waypoints.length < 2) {
+    return [];
   }
-  render() {
-    const popupButtonVisibility = this.props.mapInteraction().userMode === "remove" ? "visible": "hidden";
+  for (var i = 1; i < waypoints.length; i++) {
+    let pathToAdd = [waypoints[i], waypoints[i - 1]];
+    newPaths.push(pathToAdd);
+  }
+  return newPaths;
+}
 
-    return (
+export function MapView(props){
+  const [roverPosition, setRoverPosition] = useState(L.latLng(51.076672, -114.137474));
+  const [waypoints, setWaypoints] = useState([roverPosition]);
+  const [paths, setPaths] = useState([]);
+
+  const popupButtonVisibility = props.mapInteraction.userMode === "edit" ? "visible": "hidden";
+
+  function updateRoverPosition(newPosition){
+    setRoverPosition(newPosition)
+  }
+
+  function addWaypoint(position) {
+    let newWaypoints = waypoints;
+    newWaypoints.push(position);
+    props.changeWaypoints(newWaypoints)
+    setWaypoints(newWaypoints);
+    setPaths(drawPaths(waypoints));
+  }
+
+  function removeMarker(markersPosition){
+    let newWaypoints = waypoints.filter(position => position != markersPosition);
+    props.changeWaypoints(newWaypoints)
+    setPaths(drawPaths(newWaypoints));
+    setWaypoints(newWaypoints);
+  }
+
+  useEffect(() => {
+    if(props.coordinateValues.lat !== null && props.coordinateValues.lng !== null && props.mapInteraction.userMode === "edit"){
+      addWaypoint(L.latLng(props.coordinateValues.lat, props.coordinateValues.long));
+    }
+      
+  }, [props.coordinateValues]);
+
+   return (
       <MapContainer
-        onClick={this.handleClick}
-        center={this.props.defaultCenter}
+        // onClick={this.handleClick}
+        center={props.defaultCenter}
         zoom={17}
         scrollWheelZoom={false}
         style={{ height: "100%", width: "100%", display: "inline-block" }}
       >
         <ClickHandler
-          mapInteraction={this.props.mapInteraction}
-          addWaypoint={this.addWaypoint}
+          mapInteraction={props.mapInteraction}
+          addWaypoint={addWaypoint}
         />
-        <TileLayer url={this.props.mapTileDirectory} />
-        {this.state.waypoints.map((position, idx) => (
+        <TileLayer url={props.mapTileDirectory} />
+        {waypoints.map((position, idx) => (
           <Marker key={`waypoint-${idx}`} position={position}>
             <Popup>
               <span>
@@ -80,57 +111,18 @@ export class MapView extends Component {
                 <br />
                 Lng: {position.lng}
               </span>
-              <button style={{visibility: popupButtonVisibility}} onClick={this.removeMarker(position)}>Remove Marker From Path</button>
+              <br/>
+              <button style={{visibility: popupButtonVisibility}} onClick={() => removeMarker(position)}>Remove Marker From Path</button>
             </Popup>
           </Marker>
-        ))}
-        {this.state.paths.map((positions, idx) => (
+          ))}
+        {paths.map((positions, idx) => (
           <Polyline
             key={`path-${idx}`}
             pathOptions={{ color: "lightBlue" }}
             positions={positions}
           />
         ))}
-        <Marker icon={RoverIcon} position={this.state.roverPosition}></Marker>
       </MapContainer>
     );
-  }
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if(prevState.typedCoordinates.long != nextProps.coordinateValues.long || prevState.typedCoordinates.lat != nextProps.coordinateValues.lat){
-      this.addWaypoint(L.latLng(nextProps.coordinateValues.long, nextProps.coordinateValues.lat));
-      return {typedCoordinates: nextProps.coordinateValues};
-    }
-    else{
-      return null;
-    }
-  }
-  addWaypoint(position) {
-    const newWaypoints = this.state.waypoints;
-    newWaypoints.push(position);
-    this.setState({ waypoints: newWaypoints });
-    this.drawPaths();
-  }
-  drawPaths() {
-    let newPaths;
-    if (this.state.waypoints.length < 2) {
-      return;
-    }
-    for (var i = 1; i < this.state.waypoints.length; i++) {
-      let pathToAdd = [this.state.waypoints[i], this.state.waypoints[i - 1]];
-      newPaths = this.state.paths;
-      newPaths.push(pathToAdd);
-    }
-    this.setState({ paths: newPaths });
-  }
-  removeMarker(markersPosition){
-    const newWaypoints = this.state.waypoints.filter(position => position != markersPosition);
-    const newPaths = this.state.paths.filter(path => !path.includes(markersPosition))
-
-    this.setState({ waypoints: newWaypoints, paths: newPaths });
-    this.drawPaths();
-  }
-  updateRoverPosition(newPosition)
-  {
-    this.setState({ roverPosition: newPosition})
-  }
 }

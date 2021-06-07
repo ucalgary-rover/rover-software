@@ -1,42 +1,53 @@
+import { useState} from 'react';
 import "./style/App.css";
 import { launchConsts } from "./setup/LaunchConsts";
-import { MapUiContainer } from "./containers/MapUiContainer";
+import { MapView } from "./components/MapView";
 import { VideoStream } from "./components/VideoStream";
 import { MultiVideoStream } from "./components/MultiVideoStream";
 import { VehicleHealth } from "./components/VehicleHealth";
 import { ControlPanel } from "./components/ControlPanel";
 
-var mapInteraction = {userMode: "view"};
-let markerCoordinates = {long: null, lat: null}
-
 function App() {
-  return <div className="primary-container">
+  const [markerCoordinates, setMarkerCoordinates] = useState({lng: null, lat: null})
+  const [mapInteraction, setMapInteraction] = useState({userMode: "view"})
+  const [waypoints, setWaypoints] = useState([])
+
+  function changeUserMode(mode) {
+    setMapInteraction({userMode: mode})
+    console.log(mapInteraction.userMode);
+  }
+
+  function addMarker(newCoordinate){
+    setMarkerCoordinates(newCoordinate);
+    console.log(newCoordinate);
+  }
+
+  function changeWaypoints(points) {
+    setWaypoints(points)
+    console.log(waypoints);
+  }
+
+  return (<div className="primary-container">
     <div className="data-panel">
       <div className="data-container">
         <div className="connections"></div>
         <div className="vehicle-health"><VehicleHealth /></div>
       </div>
     </div>
-    <div className="map-view"><MapUiContainer launchConsts={launchConsts} markerCoordinates={markerCoordinates} mapInteraction={mapInteractionState}/></div>
+    <div className="map-view" style={{ height: "100%", width: "100%", display: "inline-block" }}>
+        <MapView
+          defaultCenter={launchConsts.mapCenter}
+          mapTileDirectory={launchConsts.mapTileDirectory}
+          mapInteraction={mapInteraction}
+          coordinateValues={markerCoordinates}
+          changeWaypoints={changeWaypoints}
+        />
+    </div>
     <div className="video-feed-a"><VideoStream selection="front"/></div>
     <div className="video-feed-b"><MultiVideoStream/></div>
-    <div className="plan-panel"><ControlPanel addMarker ={addMarker} changeUserMode={changeUserMode}/></div>
+    <div className="plan-panel"><ControlPanel addMarker ={addMarker} waypoints={waypoints} changeUserMode={changeUserMode}/></div>
     <div className="control-panel"></div>
-  </div>
-}
-
-function changeUserMode(mode) {
-  mapInteraction.userMode = mode;
-  console.log(mapInteraction.userMode);
-}
-
-function addMarker(newCoordinate){
-  markerCoordinates = newCoordinate;
-  console.log(newCoordinate);
-}
-
-function mapInteractionState() {
-  return mapInteraction;
+  </div>)
 }
 
 export default App;
