@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import EventEmitter2 from 'eventemitter2';
 import ROSLIB from 'roslib';
 
@@ -28,38 +28,53 @@ listener.subscribe(function(message) {
   console.log('Received message on ' + listener.name + ': ' + message.latitude + " " + message.longitude);
 });
 
-export class ControlPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      routeMode: "Add Route",
-    };
-    this.changeRouteMode = this.changeRouteMode.bind(this);
+export function ControlPanel(props){
+  const [routeMode, setRouteMode] = useState("Edit Route")
+
+  const visibility = routeMode === "Edit Route" ? "hidden": "visible";
+
+  function addCoordinate(event){
+    event.preventDefault();
+    if(event.target.longitude.value !== "" && event.target.latitude.value !== ""){
+      const newCoordinate = {long: event.target.longitude.value, lat: event.target.latitude.value};
+      props.addMarker(newCoordinate);
+      event.target.longitude.value = "";
+      event.target.latitude.value = "";
+    }
   }
 
-  // componentDidMount() {
-  //   var viewer = new MJPEGCANVAS.Viewer({
-  //     divID : 'mjpeg',
-  //     host : 'localhost',
-  //     width : 640,
-  //     height : 480,
-  //     topic : '/rover/front_cam'
-  //   });
-  // }
+  function changeRouteMode() {
+    let newRouteMode = routeMode === "Edit Route" ? "Finish Editing" : "Edit Route";
+    let newUserMode = routeMode === "Edit Route" ? "edit" : "view";
+    setRouteMode(newRouteMode);
+    props.changeUserMode(newUserMode);
+  }
 
-  render() {
-    return (
-      <div>
-        <div id="mjpeg"></div>
-        <button onClick={this.changeRouteMode}>{this.state.routeMode}</button>
-      </div>
-    );
+  return (
+  <div>
+    <button onClick={changeRouteMode}>{routeMode}</button><br/>
+
+    <form style={{visibility: visibility}}  onSubmit={addCoordinate}>
+      <label for="longitude">Longitude:</label>
+      <input type="number" step="any" id="longitude" name="longitude" ></input>
+      <br></br>
+      <label for="latitude">latitude:</label>
+      <input type="number" step="any" id="latitude" name="latitude"></input>
+      <br></br>
+      <input type="submit" value="Add Coordinate"></input>
+    </form>
+
+    <div style={{ overflow: "scroll", display: "inline-block"}}>
+      {props.waypoints.map((coordinate, idx) => (
+        <div style={{fontSize: "14px"}} >
+          <span>
+            <strong>Point#:</strong> {idx+1},
+            <strong>   Longitude:</strong> {coordinate.lng},
+            <strong>   Latitude:</strong> {coordinate.lat}
+          </span><br/>
+        </div>
+      ))}
+    </div>
+  </div> 
+  );
   }
-  changeRouteMode() {
-    let newRouteMode =
-      this.state.routeMode === "Add Route" ? "Complete Route" : "Add Route";
-    let newUserMode = this.state.routeMode === "Add Route" ? "add" : "view";
-    this.setState({ routeMode: newRouteMode });
-    this.props.changeUserMode(newUserMode);
-  }
-}
