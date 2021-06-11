@@ -5,7 +5,7 @@ import { MapView } from "./components/MapView";
 import { VideoStream } from "./components/VideoStream";
 import { MultiVideoStream } from "./components/MultiVideoStream";
 import { VehicleHealth } from "./components/VehicleHealth";
-import { ControlPanel } from "./components/ControlPanel";
+import { MapControlPanel } from "./components/MapControlPanel";
 
 function App() {
   const [markerCoordinates, setMarkerCoordinates] = useState({lng: null, lat: null})
@@ -52,7 +52,7 @@ function App() {
     </div>
     <div className="video-feed-a"><VideoStream selection="front"/></div>
     <div className="video-feed-b"><MultiVideoStream/></div>
-    <div className="plan-panel"><ControlPanel addMarker ={addMarker} waypoints={waypoints} changeUserMode={changeUserMode}/></div>
+    <div className="plan-panel"><MapControlPanel addMarker ={addMarker} waypoints={waypoints} changeUserMode={changeUserMode}/></div>
     <div className="control-panel"></div>
   </div>)
 }

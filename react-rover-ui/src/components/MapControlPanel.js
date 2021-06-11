@@ -28,7 +28,7 @@ listener.subscribe(function(message) {
   console.log('Received message on ' + listener.name + ': ' + message.latitude + " " + message.longitude);
 });
 
-export function ControlPanel(props){
+export function MapControlPanel(props){
   const [routeMode, setRouteMode] = useState("Edit Route")
 
   const visibility = routeMode === "Edit Route" ? "hidden": "visible";
@@ -64,17 +64,15 @@ export function ControlPanel(props){
       <input type="submit" value="Add Coordinate"></input>
     </form>
 
-    <div style={{ overflow: "scroll", display: "inline-block"}}>
-      {props.waypoints.map((coordinate, idx) => (
-        <div style={{fontSize: "14px"}} >
-          <span>
-            <strong>Point#:</strong> {idx+1},
-            <strong>   Longitude:</strong> {coordinate.lng},
-            <strong>   Latitude:</strong> {coordinate.lat}
-          </span><br/>
-        </div>
-      ))}
-    </div>
+    {props.waypoints.map((coordinate, idx) => (
+      <div style={{overflow: "auto", fontSize: "14px"}} >
+        <span>
+          <strong>Point#:</strong> {idx+1},
+          <strong>   Longitude:</strong> {coordinate.lng},
+          <strong>   Latitude:</strong> {coordinate.lat}
+        </span><br/>
+      </div>
+    ))}
   </div> 
   );
   }
