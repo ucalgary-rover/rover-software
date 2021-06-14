@@ -153,6 +153,8 @@ add_executable(gps_sim sim/SimGps.cpp)
 
 add_executable(keyboard_control control/Keyboard.cpp)
 
+add_executable(gps_service vehicle/GpsLocationService.cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -176,6 +178,8 @@ target_link_libraries(motor_mock ${catkin_LIBRARIES})
 target_link_libraries(gps_sim ${catkin_LIBRARIES})
 
 target_link_libraries(keyboard_control ${catkin_LIBRARIES})
+
+target_link_libraries(gps_service ${catkin_LIBRARIES})
 
 #############
 ## Install ##

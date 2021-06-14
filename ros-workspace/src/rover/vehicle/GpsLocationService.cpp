@@ -26,15 +26,15 @@ int main(int argc, char **argv)
 	int i;
 	char *field[20];
 
-	ros::init(argc, argv, "mock_gps");
+	ros::init(argc, argv, "gps_service");
 	ros::NodeHandle nh;
 
 	ros::Publisher pub = nh.advertise<rover::GpsCoords>(
 		"rover/gps_report", 1000);
 
-	ros::Rate rate(1);
+	ros::Rate rate(10);
 
-	if ((fd = openGPSPort("/dev/ttyACM0")) < 0)
+	if ((fd = openGPSPort("/dev/ttyACM1")) < 0)
 	{
 		printf("Cannot open GPS port\r\n.");
 		return 0;
@@ -56,7 +56,6 @@ int main(int argc, char **argv)
 
 			} else {
 				buffer[nbytes - 1] = '\0';
-				//printf("[%s]\r\n",buffer);
 				if (checksum_valid(buffer)) {
 					if ((strncmp(buffer, "$GP", 3) == 0) |
 						(strncmp(buffer, "$GN", 3) == 0)) {
@@ -75,13 +74,7 @@ int main(int argc, char **argv)
 							msg.satellites = atoi(field[7]);
 
 							pub.publish(msg);
-							// printf("Buffer String  :%s\r\n", buffer);
-							//debug_print_fields(i,field);
-							// printf("UTC Time  :%s\r\n",field[1]);
-							// printf("Latitude  :%f\r\n",gpsToDecimalDegrees(field[2], field[3]));
-							// printf("Longitude :%f\r\n",gpsToDecimalDegrees(field[4], field[5]));
-							// printf("Altitude  :%s\r\n",field[9]);
-							// printf("Satellites:%s\r\n",field[7]);
+							printf("Buffer String :%s\r\n", buffer);
 						}
 						if (strncmp(&buffer[3], "RMC", 3) == 0) {
 							i = parse_comma_delimited_str(buffer, field, 20);
@@ -94,12 +87,6 @@ int main(int argc, char **argv)
 							msg.ground_speed = atof(field[7]);
 
 							pub.publish(msg);
-							//debug_print_fields(i,field);
-							// printf("Speed     :%s\r\n",field[7]);
-							//printf("UTC Time  :%s\r\n",field[1]);
-							//printf("Date      :%s\r\n",field[9]);
-
-							// setTime(field[9],field[1]);
 						}
 					}
 				}
@@ -186,74 +173,6 @@ int parse_comma_delimited_str(char *string, char **fields, int max_fields)
 	}
 
 	return --i;
-}
-
-int setTime(char *date, char *time)
-{
-	struct timespec ts;
-	struct tm gpstime;
-	time_t secs;
-	char tempbuf[2];
-	int ret;
-
-	printf("GPS    UTC_Date %s, UTC_Time %s\r\n",date, time);
-	// GPS date has format of ddmmyy
-	// GPS time has format of hhmmss.ss
-
-	if ((strlen(date) != 6) | (strlen(time) != 9)) {
-		printf("No date or time fix. Exiting\r\n");
-		return 1;
-	}
-
-	// Parse day:
-	strncpy(tempbuf, (char *)date, 2);
-	tempbuf[2] = '\0';
-	gpstime.tm_mday = atoi(tempbuf);
-
-	// Parse month:
-	strncpy(tempbuf, (char *)date+2, 2);
-	tempbuf[2] = '\0';
-	gpstime.tm_mon = atoi(tempbuf) - 1;
-
-	// Parse year:
-	strncpy(tempbuf, (char *)date+4, 2);
-	tempbuf[2] = '\0';
-	gpstime.tm_year = atoi(tempbuf) + 100;
-
-	// Parse hour:
-	strncpy(tempbuf, (char *)time, 2);
-	tempbuf[2] = '\0';
-	gpstime.tm_hour = atoi(tempbuf);
-
-	// Parse minutes:
-	strncpy(tempbuf, (char *)time+2, 2);
-	tempbuf[2] = '\0';
-	gpstime.tm_min = atoi(tempbuf);
-
-	// Parse seconds:
-	strncpy(tempbuf, (char *)time+4, 2);
-	tempbuf[2] = '\0';
-	gpstime.tm_sec = atoi(tempbuf);
-
-	printf("Converted UTC_Date %02d%02d%02d, UTC_Time %02d%02d%02d.00\r\n",gpstime.tm_mday,(gpstime.tm_mon)+1,(gpstime.tm_year)%100, gpstime.tm_hour, gpstime.tm_min, gpstime.tm_sec);
-
-	ts.tv_sec = mktime(&gpstime);
-	// Apply GMT offset to correct for timezone
-	ts.tv_sec += gpstime.tm_gmtoff;
-
-	printf("Number of seconds since Epoch %ld\r\n",ts.tv_sec);
-
-	ts.tv_nsec = 0;
-	ret = clock_settime(CLOCK_REALTIME, &ts);
-	if (ret)
-		perror("Set Clock");
-
-	//clock_gettime(CLOCK_REALTIME, &ts);
-	//printf("Number of seconds since Epoch %ld\r\n",ts.tv_sec);
-	//gpstime = gmtime(&ts.tv_sec);
-	//printf("System UTC_Date %02d%02d%02d, ",gpstime->tm_mday,(gpstime->tm_mon)+1,(gpstime->tm_year)%100);
-	//printf("UTC_Time %02d%02d%02d.00\r\n", gpstime->tm_hour, gpstime->tm_min, gpstime->tm_sec);
-	printf("\r\n");
 }
 
 int openGPSPort(const char *devname)
