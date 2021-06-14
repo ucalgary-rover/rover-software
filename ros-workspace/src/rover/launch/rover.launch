@@ -1,0 +1,14 @@
+<launch>
+	<node
+		pkg="rover"
+		type="gps_service"
+		name="gps_service"
+		respawn="true"
+	/>
+	<node
+		pkg="web_video_server"
+		type="web_video_server"
+		name="video_server"
+		respawn="true"
+	/>
+</launch>
