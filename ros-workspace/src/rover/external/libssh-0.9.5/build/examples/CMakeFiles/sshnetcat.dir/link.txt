@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/sshnetcat.dir/sshnetcat.c.o CMakeFiles/sshnetcat.dir/authentication.c.o CMakeFiles/sshnetcat.dir/knownhosts.c.o CMakeFiles/sshnetcat.dir/connect_ssh.c.o  -o sshnetcat -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	ros::Publisher pub = nh.advertise<rover::GpsCoords>(
 		"rover/gps_report", 1000);
 
-	ros::Rate rate(10);
+	ros::Rate rate(50);
 
 	if ((fd = openGPSPort("/dev/ttyACM1")) < 0)
 	{
@@ -140,23 +140,17 @@ int checksum_valid(char *string)
 	int checksum;
 	unsigned char calculated_checksum = 0;
 
-	// Checksum is postcede by *
 	checksum_str = strchr(string, '*');
 	if (checksum_str != NULL){
-		// Remove checksum from string
 		*checksum_str = '\0';
-		// Calculate checksum, starting after $ (i = 1)
 		for (int i = 1; i < strlen(string); i++) {
 			calculated_checksum = calculated_checksum ^ string[i];
 		}
 		checksum = hex2int((char *)checksum_str+1);
-		//printf("Checksum Str [%s], Checksum %02X, Calculated Checksum %02X\r\n",(char *)checksum_str+1, checksum, calculated_checksum);
 		if (checksum == calculated_checksum) {
-			//printf("Checksum OK");
 			return 1;
 		}
 	} else {
-		//printf("Error: Checksum missing or NULL NMEA message\r\n");
 		return 0;
 	}
 	return 0;

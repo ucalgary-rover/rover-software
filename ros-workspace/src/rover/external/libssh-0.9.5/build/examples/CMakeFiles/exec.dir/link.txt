@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/exec.dir/exec.c.o CMakeFiles/exec.dir/authentication.c.o CMakeFiles/exec.dir/knownhosts.c.o CMakeFiles/exec.dir/connect_ssh.c.o  -o exec -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

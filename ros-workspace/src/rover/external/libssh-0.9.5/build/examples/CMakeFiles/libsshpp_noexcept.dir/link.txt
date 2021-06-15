@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/libsshpp_noexcept.dir/libsshpp_noexcept.cpp.o  -o libsshpp_noexcept -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/senddata.dir/senddata.c.o CMakeFiles/senddata.dir/authentication.c.o CMakeFiles/senddata.dir/knownhosts.c.o CMakeFiles/senddata.dir/connect_ssh.c.o  -o senddata -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

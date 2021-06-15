@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/samplesftp.dir/samplesftp.c.o CMakeFiles/samplesftp.dir/authentication.c.o CMakeFiles/samplesftp.dir/knownhosts.c.o CMakeFiles/samplesftp.dir/connect_ssh.c.o  -o samplesftp -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

@@ -53,6 +53,7 @@ add_message_files(
   DriveControls.msg
   GpsCoords.msg
   MotorState.msg
+  SignalStatus.msg
   Vector3.msg
 )
 
@@ -127,7 +128,7 @@ include_directories(
 # ${catkin_INCLUDE_DIRS}
 )
 
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(include ${catkin_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/external/libssh-0.9.5/build/include)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -153,6 +154,8 @@ add_executable(gps_sim sim/SimGps.cpp)
 
 add_executable(keyboard_control control/Keyboard.cpp)
 
+add_executable(signal_service station/SignalStrengthService.cpp)
+
 add_executable(gps_service vehicle/GpsLocationService.cpp)
 
 ## Rename C++ executable without prefix
@@ -163,7 +166,14 @@ add_executable(gps_service vehicle/GpsLocationService.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(gps_mock ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(gps_sim ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(signal_service ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(gps_service ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -178,6 +188,8 @@ target_link_libraries(motor_mock ${catkin_LIBRARIES})
 target_link_libraries(gps_sim ${catkin_LIBRARIES})
 
 target_link_libraries(keyboard_control ${catkin_LIBRARIES})
+
+target_link_libraries(signal_service ${catkin_LIBRARIES} ${PROJECT_SOURCE_DIR}/external/libssh-0.9.5/build/lib/libssh.so.4)
 
 target_link_libraries(gps_service ${catkin_LIBRARIES})
 

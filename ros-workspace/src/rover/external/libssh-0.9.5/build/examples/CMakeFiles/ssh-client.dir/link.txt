@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/ssh-client.dir/ssh_client.c.o CMakeFiles/ssh-client.dir/authentication.c.o CMakeFiles/ssh-client.dir/knownhosts.c.o CMakeFiles/ssh-client.dir/connect_ssh.c.o  -o ssh-client -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

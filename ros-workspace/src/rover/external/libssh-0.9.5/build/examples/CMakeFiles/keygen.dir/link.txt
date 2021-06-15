@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/keygen.dir/keygen.c.o  -o keygen -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 

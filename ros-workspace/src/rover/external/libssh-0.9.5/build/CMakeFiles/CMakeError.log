@@ -1,0 +1,340 @@
+Performing C SOURCE FILE Test WITH_STACK_CLASH_PROTECTION failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_45b95/fast"
+/usr/bin/make -f CMakeFiles/cmTC_45b95.dir/build.make CMakeFiles/cmTC_45b95.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_45b95.dir/src.c.o
+/usr/bin/cc   -DWITH_STACK_CLASH_PROTECTION -fstack-clash-protection -fPIE   -o CMakeFiles/cmTC_45b95.dir/src.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command line option ‘-fstack-clash-protection’; did you mean ‘-fstack-protector’?
+CMakeFiles/cmTC_45b95.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_45b95.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_45b95.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_45b95/fast' failed
+make: *** [cmTC_45b95/fast] Error 2
+
+Source file was:
+int main(int argc, char **argv) { char buffer[256]; return buffer[argc]=0;}
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_89e45/fast"
+/usr/bin/make -f CMakeFiles/cmTC_89e45.dir/build.make CMakeFiles/cmTC_89e45.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_89e45.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_89e45.dir/CheckSymbolExists.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_89e45
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_89e45.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_89e45.dir/CheckSymbolExists.c.o  -o cmTC_89e45 
+CMakeFiles/cmTC_89e45.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_89e45.dir/build.make:97: recipe for target 'cmTC_89e45' failed
+make[1]: *** [cmTC_89e45] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_89e45/fast' failed
+make: *** [cmTC_89e45/fast] Error 2
+
+File /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the include file util.h exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7300f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7300f.dir/build.make CMakeFiles/cmTC_7300f.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7300f.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_7300f.dir/CheckIncludeFile.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: util.h: No such file or directory
+ #include <util.h>
+          ^~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_7300f.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_7300f.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_7300f.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7300f/fast' failed
+make: *** [cmTC_7300f/fast] Error 2
+
+
+Determining if the include file libutil.h exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_69ea6/fast"
+/usr/bin/make -f CMakeFiles/cmTC_69ea6.dir/build.make CMakeFiles/cmTC_69ea6.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_69ea6.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_69ea6.dir/CheckIncludeFile.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: libutil.h: No such file or directory
+ #include <libutil.h>
+          ^~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_69ea6.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_69ea6.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_69ea6.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_69ea6/fast' failed
+make: *** [cmTC_69ea6/fast] Error 2
+
+
+Determining if the include file sys/utime.h exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3273f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3273f.dir/build.make CMakeFiles/cmTC_3273f.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3273f.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_3273f.dir/CheckIncludeFile.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: sys/utime.h: No such file or directory
+ #include <sys/utime.h>
+          ^~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_3273f.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_3273f.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_3273f.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_3273f/fast' failed
+make: *** [cmTC_3273f/fast] Error 2
+
+
+Determining if the include file valgrind/valgrind.h exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e424f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e424f.dir/build.make CMakeFiles/cmTC_e424f.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e424f.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_e424f.dir/CheckIncludeFile.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: valgrind/valgrind.h: No such file or directory
+ #include <valgrind/valgrind.h>
+          ^~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_e424f.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_e424f.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_e424f.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e424f/fast' failed
+make: *** [cmTC_e424f/fast] Error 2
+
+
+Determining if the function CRYPTO_THREADID_set_callback exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_af32c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_af32c.dir/build.make CMakeFiles/cmTC_af32c.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_af32c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=CRYPTO_THREADID_set_callback -fPIE   -o CMakeFiles/cmTC_af32c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_af32c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_af32c.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=CRYPTO_THREADID_set_callback    -rdynamic CMakeFiles/cmTC_af32c.dir/CheckFunctionExists.c.o  -o cmTC_af32c /usr/lib/x86_64-linux-gnu/libcrypto.so 
+CMakeFiles/cmTC_af32c.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `CRYPTO_THREADID_set_callback'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_af32c.dir/build.make:98: recipe for target 'cmTC_af32c' failed
+make[1]: *** [cmTC_af32c] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_af32c/fast' failed
+make: *** [cmTC_af32c/fast] Error 2
+
+
+Determining if the function EVP_KDF_CTX_new_id exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2f750/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2f750.dir/build.make CMakeFiles/cmTC_2f750.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2f750.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=EVP_KDF_CTX_new_id -fPIE   -o CMakeFiles/cmTC_2f750.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_2f750
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2f750.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=EVP_KDF_CTX_new_id    -rdynamic CMakeFiles/cmTC_2f750.dir/CheckFunctionExists.c.o  -o cmTC_2f750 /usr/lib/x86_64-linux-gnu/libcrypto.so 
+CMakeFiles/cmTC_2f750.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `EVP_KDF_CTX_new_id'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_2f750.dir/build.make:98: recipe for target 'cmTC_2f750' failed
+make[1]: *** [cmTC_2f750] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_2f750/fast' failed
+make: *** [cmTC_2f750/fast] Error 2
+
+
+Determining if the function OPENSSL_ia32cap_loc exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_519a5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_519a5.dir/build.make CMakeFiles/cmTC_519a5.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_519a5.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=OPENSSL_ia32cap_loc -fPIE   -o CMakeFiles/cmTC_519a5.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_519a5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_519a5.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=OPENSSL_ia32cap_loc    -rdynamic CMakeFiles/cmTC_519a5.dir/CheckFunctionExists.c.o  -o cmTC_519a5 /usr/lib/x86_64-linux-gnu/libcrypto.so 
+CMakeFiles/cmTC_519a5.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `OPENSSL_ia32cap_loc'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_519a5.dir/build.make:98: recipe for target 'cmTC_519a5' failed
+make[1]: *** [cmTC_519a5] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_519a5/fast' failed
+make: *** [cmTC_519a5/fast] Error 2
+
+
+Determining if the function memset_s exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_43fe0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_43fe0.dir/build.make CMakeFiles/cmTC_43fe0.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_43fe0.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=memset_s -fPIE   -o CMakeFiles/cmTC_43fe0.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_43fe0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_43fe0.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=memset_s    -rdynamic CMakeFiles/cmTC_43fe0.dir/CheckFunctionExists.c.o  -o cmTC_43fe0 
+CMakeFiles/cmTC_43fe0.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `memset_s'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_43fe0.dir/build.make:97: recipe for target 'cmTC_43fe0' failed
+make[1]: *** [cmTC_43fe0] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_43fe0/fast' failed
+make: *** [cmTC_43fe0/fast] Error 2
+
+
+Determining if the ntohll exist failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a18c1/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a18c1.dir/build.make CMakeFiles/cmTC_a18c1.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a18c1.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_a18c1.dir/CheckSymbolExists.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8:19: error: ‘ntohll’ undeclared (first use in this function); did you mean ‘ntohl’?
+   return ((int*)(&ntohll))[argc];
+                   ^~~~~~
+                   ntohl
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+CMakeFiles/cmTC_a18c1.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_a18c1.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_a18c1.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_a18c1/fast' failed
+make: *** [cmTC_a18c1/fast] Error 2
+
+File /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <arpa/inet.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef ntohll
+  return ((int*)(&ntohll))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the htonll exist failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ee056/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ee056.dir/build.make CMakeFiles/cmTC_ee056.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ee056.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_ee056.dir/CheckSymbolExists.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8:19: error: ‘htonll’ undeclared (first use in this function); did you mean ‘htonl’?
+   return ((int*)(&htonll))[argc];
+                   ^~~~~~
+                   htonl
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+CMakeFiles/cmTC_ee056.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_ee056.dir/CheckSymbolExists.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_ee056.dir/CheckSymbolExists.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_ee056/fast' failed
+make: *** [cmTC_ee056/fast] Error 2
+
+File /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <arpa/inet.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef htonll
+  return ((int*)(&htonll))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function __strtoull exists failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a9947/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a9947.dir/build.make CMakeFiles/cmTC_a9947.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a9947.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=__strtoull -fPIE   -o CMakeFiles/cmTC_a9947.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_a9947
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a9947.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=__strtoull    -rdynamic CMakeFiles/cmTC_a9947.dir/CheckFunctionExists.c.o  -o cmTC_a9947 
+CMakeFiles/cmTC_a9947.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `__strtoull'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_a9947.dir/build.make:97: recipe for target 'cmTC_a9947' failed
+make[1]: *** [cmTC_a9947] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_a9947/fast' failed
+make: *** [cmTC_a9947/fast] Error 2
+
+
+Performing C SOURCE FILE Test HAVE_MSC_THREAD_LOCAL_STORAGE failed with the following output:
+Change Dir: /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_783da/fast"
+/usr/bin/make -f CMakeFiles/cmTC_783da.dir/build.make CMakeFiles/cmTC_783da.dir/build
+make[1]: Entering directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_783da.dir/src.c.o
+/usr/bin/cc   -DHAVE_MSC_THREAD_LOCAL_STORAGE -fPIE   -o CMakeFiles/cmTC_783da.dir/src.c.o   -c /home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c:2:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ __declspec(thread) int tls;
+ ^~~~~~~~~~
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c: In function ‘__declspec’:
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c:4:16: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ int main(void) {
+                ^
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c:2:1: warning: type of ‘thread’ defaults to ‘int’ [-Wimplicit-int]
+ __declspec(thread) int tls;
+ ^~~~~~~~~~
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c:2:24: error: declaration for parameter ‘tls’ but no such parameter
+ __declspec(thread) int tls;
+                        ^~~
+/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp/src.c:6:1: error: expected ‘{’ at end of input
+ }
+ ^
+CMakeFiles/cmTC_783da.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_783da.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_783da.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/derek/Downloads/libssh-0.9.5/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_783da/fast' failed
+make: *** [cmTC_783da/fast] Error 2
+
+Source file was:
+
+__declspec(thread) int tls;
+
+int main(void) {
+    return 0;
+}

@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/samplesshd-kbdint.dir/samplesshd-kbdint.c.o  -o samplesshd-kbdint -Wl,-rpath,/home/derek/Downloads/libssh-0.9.5/build/lib ../lib/libssh.so.4.8.6 
