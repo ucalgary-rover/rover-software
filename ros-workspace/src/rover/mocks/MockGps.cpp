@@ -8,10 +8,15 @@
 int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "mock_gps");
-	ros::NodeHandle nh;
+	ros::NodeHandle nh("~");
 
 	ros::Publisher pub = nh.advertise<rover::GpsCoords>(
 		"rover/gps_report", 1000);
+
+	double latParam = 0;
+	double lonParam = 0;
+	nh.getParam("lat", latParam);
+	nh.getParam("lon", lonParam);
 
 	srand(time(0));
 
@@ -27,11 +32,7 @@ int main(int argc, char **argv)
 
 		pub.publish(msg);
 
-		ROS_INFO_STREAM("Reported GPS:" 
-			<< " lat: " 
-			<< msg.latitude
-			<< " long: "
-			<< msg.longitude);
+		ROS_INFO_STREAM("Got Parameters: " << latParam << ", " << lonParam);
 
 		rate.sleep();
 	}
