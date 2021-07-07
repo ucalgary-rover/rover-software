@@ -10,8 +10,8 @@
 	</group>
 	<group>
 		<remap from='joy' to='joyArm'/>
-		<node pkg='joy' name='joy1' type='joy_node'>
-			<param name='dev' type='string' value='/dev/input/js1'/>
+		<node pkg='joy' name='joy2' type='joy_node'>
+			<param name='dev' type='string' value='/dev/input/js2'/>
 		</node>
 	</group>
 </launch>
