@@ -11,8 +11,6 @@ double joyAxes[8];
 
 void joyStickCallBack (const sensor_msgs::Joy& msg){
 	
-	ROS_INFO_STREAM("In Callback");
-
 	for (int i=0; i<=7; i++)
 	{
 	joyAxes[i]=msg.axes[i];
@@ -31,6 +29,7 @@ int main(int argc, char **argv)
 
 	double latParam = 0;
 	double lonParam = 0;
+	
 	nh.getParam("lat", latParam);
 	nh.getParam("lon", lonParam);
 
@@ -41,17 +40,11 @@ int main(int argc, char **argv)
 	double previousLat=latParam;
 	double previousLon=lonParam;
 
-	/*double latDisplacment= (((float)rand()-RAND_MAX/2)/(float)(RAND_MAX/3.0));  //for constanst random speed
-	double lonDisplacment= (((float)rand()-RAND_MAX/2)/(float)(RAND_MAX/3.0));*/
-	
 	while(ros::ok())
 	{
 		rover::GpsCoords msg;
 
 		msg.header.stamp = ros::Time::now();
-
-		/*double latDisplacment= (((float)rand()-RAND_MAX/2)/(float)(RAND_MAX/3.0)); // for random speed
-		double lonDisplacment= (((float)rand()-RAND_MAX/2)/(float)(RAND_MAX/3.0));*/
 		
 		double latDisplacment;
 		double lonDisplacment;
@@ -59,44 +52,49 @@ int main(int argc, char **argv)
 		for (int i=0; i<=7; i++)
 		{
 
-			if (i==1 || i==4|| i==7)
+			if ((i == 1 && joyAxes[i] != 0) || (i == 4 && joyAxes[i] != 0)|| (i == 7 && joyAxes[i] != 0))
 			{
-				latDisplacment= (joyAxes[i]);
+				latDisplacment= joyAxes[i];
 			}
 
-			if (i==0 || i==3 || i==6)
+			if ((i == 0 && joyAxes[i] != 0) || (i == 3 && joyAxes[i] != 0)|| (i == 6 && joyAxes[i] != 0))
 			{
-				lonDisplacment= -(joyAxes[i]);
+				lonDisplacment= -joyAxes[i];
 			}
 
 		}
 		
-		msg.latitude= previousLat;
-		msg.longitude= previousLon;
+		msg.latitude = previousLat;
+		msg.longitude = previousLon;
 		
 		previousLat +=  latDisplacment;
 		previousLon += lonDisplacment;
 
-		msg.ground_speed = sqrt(pow(latDisplacment,2)+ pow(lonDisplacment,2));
+		msg.ground_speed = sqrt(pow(latDisplacment, 2)+ pow(lonDisplacment, 2));
 
-		if (msg.latitude>0 && msg.longitude>0)
+		if (msg.latitude > 0 && msg.longitude > 0)
 		{
 			msg.direction = "NE";
-		} else if (msg.latitude<0 && msg.longitude>0)
+		} 
+		else if (msg.latitude < 0 && msg.longitude > 0)
 		{
 			msg.direction = "SE";
-		}else if (msg.latitude<0 && msg.longitude<0)			// needing to know how to access msg board
+		}
+		else if (msg.latitude < 0 && msg.longitude < 0)	
 		{
 			msg.direction = "SW";
-		}else if (msg.latitude>0 && msg.longitude<0)
+		}
+		else if (msg.latitude > 0 && msg.longitude <0 )
 		{
 			msg.direction = "NW";
+		}
+		else
+		{
+			msg.direction = "invalid";
 		}
 
 		pub.publish(msg);
 
-
-		ROS_INFO_STREAM("Got Parameters: " << latParam << ", " << lonParam);
 		
 		ros::spinOnce();
 		rate.sleep();
